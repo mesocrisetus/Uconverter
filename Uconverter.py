@@ -3,6 +3,7 @@ import sys
 #modulos de pyQT
 from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox
 from PyQt5.uic import loadUi
+from PyQt5.QtGui import QIcon
 
 # Modulos youtube 
 
@@ -15,7 +16,7 @@ class DlgIniciar(QDialog):
     def __init__(self): #traer el usuario
         super(DlgIniciar, self).__init__()
         loadUi('ui/form.ui',self)
-        # self.b_ingresar.clicked.connect(self.crud)
+        self.setWindowIcon(QIcon('./ui/icon.ico'))
         self.progressBar.hide()
         self.b_youtube.clicked.connect(self.convertir)
 
