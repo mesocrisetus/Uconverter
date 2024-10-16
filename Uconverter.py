@@ -6,8 +6,8 @@ from PyQt5.uic import loadUi
 
 # Modulos youtube 
 
-from pytube import YouTube
-from pytube.cli import on_progress
+from pytubefix import YouTube
+from pytubefix.cli import on_progress
 
 
 
@@ -18,6 +18,44 @@ class DlgIniciar(QDialog):
         # self.b_ingresar.clicked.connect(self.crud)
         self.progressBar.hide()
         self.b_youtube.clicked.connect(self.convertir)
+
+        self.setStyleSheet("""
+            QDialog {
+                background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1,
+                stop:0 rgba(50, 50, 50, 255), stop:1 rgba(75, 75, 75, 255)); /* Fondo degradado gris */
+            }
+            QLabel, QLineEdit, QPushButton, QComboBox {
+                font-family: 'Arial';
+                color: white;
+            }
+            QPushButton {
+                background-color: rgba(0, 150, 136, 1);
+                border-radius: 10px;
+            }
+            QPushButton:hover {
+                background-color: rgba(0, 200, 186, 1);
+            }
+            QLineEdit {
+                background-color: rgba(255, 255, 255, 0.1);
+                border: 1px solid white;
+                padding-left: 10px;
+                border-radius: 5px;
+            }
+            QComboBox {
+                background-color: rgba(255, 255, 255, 0.1);
+                border: 1px solid white;
+                border-radius: 5px;
+                padding-left: 5px;
+            }
+            QProgressBar {
+                border: 1px solid white;
+                border-radius: 5px;
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+            QProgressBar::chunk {
+                background-color: rgba(0, 150, 136, 1);
+            }
+        """)
 
     def convertir(self):
         if self.combo_youtube.currentText() == 'MP4':
@@ -46,17 +84,16 @@ class DlgIniciar(QDialog):
                 print("Error al descargar MP4")   
 
         elif self.combo_youtube.currentText() == 'MP3':
-             self.progressBar.show()
-             bar = self.progressBar
-             bar.setValue(20)
-             
-             url = self.t_url_youtube.text() 
-             
-             
-             youtubeObject = YouTube(url)
-             youtubeObject = youtubeObject.streams.filter(only_audio=True).first()
-             bar.setValue(60)
-             try:
+            self.progressBar.show()
+            bar = self.progressBar
+            bar.setValue(20)
+
+            url = self.t_url_youtube.text() 
+
+            youtubeObject = YouTube(url)
+            youtubeObject = youtubeObject.streams.filter(only_audio=True).first()
+            bar.setValue(60)
+            try:
                 path = os.getcwd()
                 print(path)          
                 out = youtubeObject.download(path)  
@@ -76,10 +113,10 @@ class DlgIniciar(QDialog):
                 msg.exec() 
                 self.progressBar.hide()
                 
-             except:
+            except:
                 print("Error al descargar MP3")
 
-                  
+
 
 #prgrama o ejecucion principal de ejecucion
 app = QApplication(sys.argv)#'argv'#la aplicacion se encarga de minimizar o max la ventana
