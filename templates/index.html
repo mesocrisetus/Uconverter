@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Generador de QR</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <h1>Uconverter</h1>
+        </div>
+    </header>
+
+    <!-- Main Section -->
+    <main>
+        <div class="container">
+            <h2>Descarga tu video de youtube</h2>
+            <p>Introduce la URL del video que deseas descargar.</p>
+            
+            <form action="/descargarVideo" method="post">
+                <input type="text" name="url" id="url" placeholder="https://example.com" required>
+                <select name="format" id="format">
+                    <option value="MP4">MP4</option>
+                    <option value="MP3">MP3</option>
+                </select>
+                <button type="submit">Convertir Video</button>
+            </form>
+            
+            <!-- Mostrar el código QR generado -->
+            {% if filename %}
+                <div class="qr-container">
+                    <h3>Tu video convertido:</h3>
+                    <p><a href="/download/{{ filename }}" download>Descargar video convertido a {{ format }}</a></p>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 QR Code Generator. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
