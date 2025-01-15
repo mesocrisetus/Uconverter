@@ -14,7 +14,7 @@ def convertir(url,format):
 
 
     if format == 'MP4':
-        youtubeObject = YouTube(url)
+        youtubeObject = YouTube(url, use_po_token=True)
         youtubeObject = youtubeObject.streams.get_highest_resolution()
         try:
             object = youtubeObject.download(path)  
@@ -24,7 +24,7 @@ def convertir(url,format):
             print("Error al descargar MP4")   
 
     elif format == 'MP3':
-        youtubeObject = YouTube(url)
+        youtubeObject = YouTube(url, use_po_token=True)
         youtubeObject = youtubeObject.streams.filter(only_audio=True).first()
         try:       
             out = youtubeObject.download(path)  
