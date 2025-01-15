@@ -8,6 +8,7 @@ def convertir(url,format):
     cPath = os.getcwd()
     folder = 'vids'
     path = os.path.join(cPath,folder)
+    checkAndCreateDirectory(path)
 
     deleteFiles(path)
 
@@ -35,6 +36,16 @@ def convertir(url,format):
             
         except:
             print("Error al descargar MP3")
+
+
+def checkAndCreateDirectory(folder):
+    # Comprobar si el directorio existe
+    if not os.path.exists(folder):
+        # Crear el directorio si no existe
+        os.makedirs(folder)
+        print(f"El directorio {folder} ha sido creado.")
+    else:
+        print(f"El directorio {folder} ya existe.")
 
 def deleteFiles(folder):
     try:
